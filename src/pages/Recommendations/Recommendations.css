@@ -1,0 +1,502 @@
+.recommendations-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.recommendations-header {
+  margin-bottom: 2rem;
+}
+
+.recommendations-header h2 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.recommendation-stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--netflix-text-secondary);
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.recommendations-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--netflix-text-secondary);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  color: var(--netflix-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-button.active {
+  color: var(--netflix-red);
+  border-bottom-color: var(--netflix-red);
+}
+
+.tab-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.refresh-button {
+  background: var(--netflix-red);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.refresh-button:hover {
+  background: var(--netflix-dark-red);
+}
+
+.refresh-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.recommendation-empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--netflix-dark-gray);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.recommendation-empty-state svg:first-child {
+  color: var(--netflix-text-muted);
+  margin-bottom: 2rem;
+}
+
+.recommendation-empty-state h3 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.recommendation-empty-state > p {
+  color: var(--netflix-text-secondary);
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+.recommendation-tips {
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  text-align: left;
+}
+
+.recommendation-tips h4 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.tip-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.tip-icon {
+  color: var(--netflix-red);
+  background: rgba(229, 9, 20, 0.1);
+  padding: 0.75rem;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.tip-content h5 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.tip-content p {
+  color: var(--netflix-text-secondary);
+  line-height: 1.5;
+}
+
+.setup-preferences-button {
+  background: var(--netflix-red);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+  transition: background-color 0.3s ease;
+}
+
+.setup-preferences-button:hover {
+  background: var(--netflix-dark-red);
+}
+
+.recommendations-section {
+  margin-bottom: 3rem;
+}
+
+.recommendations-section h3 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.loading-state {
+  text-align: center;
+  padding: 4rem;
+}
+
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid var(--netflix-red);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+.loading-state p {
+  color: var(--netflix-text-secondary);
+  font-size: 1.1rem;
+}
+
+.error-message {
+  background: rgba(229, 9, 20, 0.1);
+  border: 1px solid var(--netflix-red);
+  color: var(--netflix-red);
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .recommendations-page {
+    padding: 1rem;
+  }
+  
+  .recommendations-header h2 {
+    font-size: 2rem;
+  }
+  
+  .recommendation-stats {
+    gap: 1rem;
+  }
+  
+  .recommendations-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .books-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .tip-item {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Add these new styles to your existing CSS */
+
+.genre-filter-section {
+  background: var(--netflix-dark-gray);
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.filter-header h4 {
+  color: var(--netflix-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.clear-filters {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--netflix-text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.clear-filters:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--netflix-text-primary);
+}
+
+.genre-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.genre-chip {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--netflix-text-secondary);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.genre-chip:hover:not(:disabled) {
+  background: rgba(229, 9, 20, 0.1);
+  border-color: var(--netflix-red);
+  color: var(--netflix-text-primary);
+  transform: translateY(-2px);
+}
+
+.genre-chip.selected {
+  background: var(--netflix-red);
+  color: white;
+  border-color: var(--netflix-red);
+}
+
+.genre-chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.selected-genres-display {
+  text-align: center;
+  color: var(--netflix-text-secondary);
+  font-size: 0.95rem;
+}
+
+.selected-genres-display p {
+  margin: 0 0 0.5rem 0;
+  color: var(--netflix-text-primary);
+}
+
+.genre-count {
+  color: var(--netflix-red);
+  font-weight: 600;
+}
+
+.empty-genre-state,
+.select-genre-prompt {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--netflix-dark-gray);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 2rem;
+}
+
+.empty-genre-state svg,
+.select-genre-prompt svg {
+  color: var(--netflix-text-muted);
+  margin-bottom: 1rem;
+}
+
+.empty-genre-state h4,
+.select-genre-prompt h4 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.empty-genre-state p,
+.select-genre-prompt p {
+  color: var(--netflix-text-secondary);
+  font-size: 1.1rem;
+}
+
+.loading-state p {
+  color: var(--netflix-text-secondary);
+  font-size: 1.1rem;
+}
+
+/* Update existing tab styles */
+.recommendations-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .genre-selection-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+  
+  .genre-chip {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .filter-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .clear-filters {
+    align-self: center;
+  }
+}
+/* Add these new styles */
+
+.filter-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.homepage-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--netflix-red);
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: rgba(229, 9, 20, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(229, 9, 20, 0.3);
+}
+
+.homepage-sync-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--netflix-red);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .filter-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .books-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 400px;
+    margin: 2rem auto 0;
+  }
+}
+
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}

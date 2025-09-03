@@ -1,0 +1,163 @@
+.premium-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.premium-modal {
+  background: var(--netflix-dark-gray);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--netflix-text-secondary);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: var(--netflix-text-primary);
+}
+
+.premium-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.crown-icon {
+  color: #ffd700;
+  margin-bottom: 1rem;
+}
+
+.premium-header h2 {
+  color: var(--netflix-text-primary);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.premium-header p {
+  color: var(--netflix-text-secondary);
+  font-size: 1.1rem;
+}
+
+.premium-features {
+  margin-bottom: 2rem;
+}
+
+.premium-features h3 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.features-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--netflix-text-secondary);
+}
+
+.feature-item svg {
+  color: #28a745;
+  flex-shrink: 0;
+}
+
+.premium-pricing {
+  margin-bottom: 2rem;
+}
+
+.price-card {
+  background: rgba(229, 9, 20, 0.1);
+  border: 2px solid var(--netflix-red);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.price-card h4 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--netflix-red);
+  margin-bottom: 1.5rem;
+}
+
+.price span {
+  font-size: 1rem;
+  color: var(--netflix-text-secondary);
+}
+
+.upgrade-button {
+  background: var(--netflix-red);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.upgrade-button:hover {
+  background: var(--netflix-dark-red);
+  transform: translateY(-2px);
+}
+
+.legal-note {
+  font-size: 0.9rem;
+  color: var(--netflix-text-muted);
+  text-align: center;
+  line-height: 1.5;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .premium-modal-overlay {
+    padding: 1rem;
+  }
+  
+  .premium-modal {
+    padding: 1.5rem;
+  }
+  
+  .premium-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .price {
+    font-size: 2rem;
+  }
+}

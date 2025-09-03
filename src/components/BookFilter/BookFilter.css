@@ -1,0 +1,126 @@
+.book-filter {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.filter-toggle {
+  background: var(--netflix-red);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.filter-toggle:hover {
+  background: var(--netflix-dark-red);
+}
+
+.filter-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ffc107;
+  color: #000;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.filter-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--netflix-dark-gray);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  z-index: 100;
+  min-width: 300px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.filter-section {
+  margin-bottom: 1.5rem;
+}
+
+.filter-section h4 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.genre-options,
+.rating-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.genre-filter-button,
+.rating-filter-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--netflix-text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.genre-filter-button:hover,
+.rating-filter-button:hover {
+  background: rgba(229, 9, 20, 0.1);
+  border-color: var(--netflix-red);
+  color: var(--netflix-text-primary);
+}
+
+.genre-filter-button.active,
+.rating-filter-button.active {
+  background: var(--netflix-red);
+  color: white;
+  border-color: var(--netflix-red);
+}
+
+.clear-filters-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--netflix-text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.clear-filters-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--netflix-text-primary);
+}
+
+@media (max-width: 768px) {
+  .filter-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 400px;
+  }
+}

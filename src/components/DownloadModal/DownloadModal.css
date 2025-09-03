@@ -1,0 +1,143 @@
+.download-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.download-modal {
+  background: var(--netflix-dark-gray);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.download-header {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: none;
+  border: none;
+  color: var(--netflix-text-secondary);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: var(--netflix-text-primary);
+}
+
+.download-header h2 {
+  color: var(--netflix-text-primary);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.download-header p {
+  color: var(--netflix-text-secondary);
+  font-size: 1rem;
+}
+
+.download-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.option-section h3 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  border-bottom: 2px solid var(--netflix-red);
+  padding-bottom: 0.5rem;
+}
+
+.options-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.download-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: var(--netflix-text-primary);
+  transition: all 0.3s ease;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.download-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.download-option span {
+  flex: 1;
+}
+
+.download-option svg:last-child {
+  color: var(--netflix-text-secondary);
+}
+
+.download-footer {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.download-footer p {
+  color: var(--netflix-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .download-modal-overlay {
+    padding: 1rem;
+  }
+  
+  .download-modal {
+    padding: 1.5rem;
+  }
+  
+  .download-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .options-grid {
+    gap: 0.75rem;
+  }
+  
+  .download-option {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+}

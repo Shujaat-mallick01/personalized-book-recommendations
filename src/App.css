@@ -1,0 +1,52 @@
+:root {
+  --netflix-red: #E50914;
+  --netflix-dark-red: #B81D24;
+  --netflix-black: #000000;
+  --netflix-dark-gray: #141414;
+  --netflix-gray: #333333;
+  --netflix-light-gray: #564d4d;
+  --netflix-text-primary: #ffffff;
+  --netflix-text-secondary: #b3b3b3;
+  --netflix-text-muted: #8c8c8c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--netflix-black);
+  color: var(--netflix-text-primary);
+  line-height: 1.6;
+}
+
+.App {
+  min-height: 100vh;
+  background-color: var(--netflix-black);
+}
+
+main {
+  background-color: var(--netflix-black);
+  min-height: calc(100vh - 70px);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--netflix-dark-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--netflix-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--netflix-light-gray);
+}

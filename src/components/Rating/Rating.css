@@ -1,0 +1,54 @@
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 2px;
+  color: #555;
+  border-radius: 2px;
+}
+
+.star:hover {
+  transform: scale(1.1);
+  background: rgba(255, 193, 7, 0.1);
+}
+
+.star.filled {
+  color: #ffc107;
+}
+
+.rating-text {
+  font-size: 0.8rem;
+  color: var(--netflix-text-secondary);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.rating-container.animating .star.filled {
+  animation: starPulse 0.3s ease;
+}
+
+@keyframes starPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.rating-container.small .rating-text {
+  font-size: 0.7rem;
+}
+
+.rating-container.large .rating-text {
+  font-size: 0.9rem;
+}

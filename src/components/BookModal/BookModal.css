@@ -1,0 +1,345 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.book-modal {
+  background: var(--netflix-dark-gray);
+  border-radius: 8px;
+  max-width: 900px;
+  max-height: 90vh;
+  width: 90%;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  display: flex;
+  min-height: 600px;
+  max-height: 90vh;
+}
+
+.modal-left {
+  flex: 0 0 300px;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-cover {
+  margin-bottom: 2rem;
+}
+
+.book-cover img {
+  max-width: 200px;
+  max-height: 280px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.no-cover {
+  width: 200px;
+  height: 280px;
+  background: var(--netflix-gray);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--netflix-text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.reading-controls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.status-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--netflix-text-primary);
+  font-weight: 600;
+}
+
+.status-dropdown {
+  position: relative;
+}
+
+.status-button {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.status-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--netflix-gray);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.status-option {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  color: var(--netflix-text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.status-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.library-button {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.library-button.add-library {
+  background: var(--netflix-red);
+  color: white;
+}
+
+.library-button.add-library:hover {
+  background: var(--netflix-dark-red);
+}
+
+.library-button.in-library {
+  background: #28a745;
+  color: white;
+}
+
+.library-button.in-library:hover {
+  background: #218838;
+}
+
+.rating-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--netflix-text-primary);
+  font-weight: 600;
+}
+
+.modal-right {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.book-header h2 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.book-author {
+  color: var(--netflix-text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.book-metadata-detailed {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.metadata-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--netflix-text-secondary);
+}
+
+.categories-section {
+  margin-bottom: 2rem;
+}
+
+.categories-section h4 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.categories-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.category-badge {
+  background: var(--netflix-red);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.description-section {
+  margin-bottom: 2rem;
+}
+
+.description-section h4 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.full-description {
+  color: var(--netflix-text-secondary);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.review-section {
+  margin-bottom: 2rem;
+}
+
+.review-section h4 {
+  color: var(--netflix-text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.review-textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: var(--netflix-gray);
+  color: var(--netflix-text-primary);
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.review-textarea:focus {
+  outline: none;
+  border-color: var(--netflix-red);
+}
+
+.save-review-button {
+  margin-top: 1rem;
+  padding: 8px 16px;
+  background: var(--netflix-red);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.external-links {
+  margin-top: 2rem;
+}
+
+.external-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 12px 24px;
+  background: #4285f4;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.external-link:hover {
+  background: #3367d6;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    flex-direction: column;
+  }
+  
+  .modal-left {
+    flex: none;
+    padding: 1.5rem;
+  }
+  
+  .book-cover img {
+    max-width: 150px;
+    max-height: 210px;
+  }
+  
+  .modal-right {
+    padding: 1.5rem;
+  }
+}
