@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useBooks } from '../../contexts/BookContext';
 import { useAuth } from '../../contexts/AuthContext';
 import SearchBar from '../../components/SearchBar';

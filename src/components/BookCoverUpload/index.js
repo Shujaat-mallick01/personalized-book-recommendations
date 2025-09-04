@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, Image, X } from 'lucide-react';
+import { Upload, X } from 'lucide-react';
 import { saveCustomBookCover, removeCustomBookCover, hasCustomCover } from '../../utils/helpers';
 import './BookCoverUpload.css';
 

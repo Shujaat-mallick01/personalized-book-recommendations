@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { BookOpen } from 'lucide-react';
 import './Login.css';
 
 const Login = () => {
-  const { loading, error } = useAuth();
+  const { error } = useAuth();
 
   useEffect(() => {
     const renderGoogleButton = () => {

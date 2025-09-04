@@ -1,6 +1,4 @@
-import ReadingStats from '../../components/ReadingStats';
-import RandomBookPicker from '../../components/RandomBookPicker';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useUser } from '../../contexts/UserContext';
 import { useBooks } from '../../contexts/BookContext';
