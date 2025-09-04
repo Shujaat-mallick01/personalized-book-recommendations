@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useUser } from '../../contexts/UserContext';
@@ -18,7 +17,6 @@ const Navbar = () => {
   const { isPremium } = useUser();
   const { readingList } = useBooks();
   const location = useLocation();
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     signOut(); // Use signOut instead of logout

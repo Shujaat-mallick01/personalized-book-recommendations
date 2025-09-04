@@ -23,14 +23,15 @@ const Home = () => {
   const [genreBooks, setGenreBooks] = useState([]);
 
   useEffect(() => {
-    if (user) {
-      if (selectedGenresForHome && selectedGenresForHome.length > 0) {
-        loadGenreBasedPopularBooks();
-      } else {
-        loadPopularBooks();
-      }
+  if (user) {
+    if (selectedGenresForHome && selectedGenresForHome.length > 0) {
+      loadGenreBasedPopularBooks();
+    } else {
+      loadPopularBooks();
     }
-  }, [selectedGenresForHome, user]);
+  }
+}, [selectedGenresForHome, user, loadGenreBasedPopularBooks, loadPopularBooks]);
+
 
   const loadPopularBooks = async () => {
     try {

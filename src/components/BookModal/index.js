@@ -65,11 +65,6 @@ const BookModal = ({ book, isOpen, onClose }) => {
 
   const handleReviewSubmit = () => {
     if (isInReadingList) {
-      const updatedBook = {
-        ...bookInList,
-        review,
-        reviewDate: new Date().toISOString()
-      };
       // You can add a updateBookReview method to BookContext
       console.log('Review updated:', review);
     }
@@ -249,13 +244,6 @@ const BookModal = ({ book, isOpen, onClose }) => {
     
   );
   {/* Add this after the book cover section */}
-<BookCoverUpload 
-  book={book}
-  onCoverUpdate={(bookId, newCover) => {
-    // Force re-render by updating book image
-    window.location.reload(); // Simple solution
-  }}
-/>
 };
 
 export default BookModal;

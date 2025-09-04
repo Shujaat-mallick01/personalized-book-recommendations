@@ -50,27 +50,29 @@ const Recommendations = () => {
   }, [selectedGenresForHome]);
 
   useEffect(() => {
-    loadTrendingBooks();
-    if (hasPreferences || hasRatings) {
-      loadPersonalizedRecommendations();
-    }
-  }, [hasPreferences, hasRatings]);
+  loadTrendingBooks();
+  if (hasPreferences || hasRatings) {
+    loadPersonalizedRecommendations();
+  }
+}, [hasPreferences, hasRatings, loadPersonalizedRecommendations]);
+
 
   useEffect(() => {
-    if (selectedGenres.length > 0) {
-      loadGenreBasedRecommendations();
-      // Update homepage to show books from selected genres
-      if (updateHomepageGenres) {
-        updateHomepageGenres(selectedGenres);
-      }
-    } else {
-      setGenreRecs([]);
-      // Clear homepage genre filter
-      if (updateHomepageGenres) {
-        updateHomepageGenres([]);
-      }
+  if (selectedGenres.length > 0) {
+    loadGenreBasedRecommendations();
+    // Update homepage to show books from selected genres
+    if (updateHomepageGenres) {
+      updateHomepageGenres(selectedGenres);
     }
-  }, [selectedGenres, updateHomepageGenres]);
+  } else {
+    setGenreRecs([]);
+    // Clear homepage genre filter
+    if (updateHomepageGenres) {
+      updateHomepageGenres([]);
+    }
+  }
+}, [selectedGenres, updateHomepageGenres, loadGenreBasedRecommendations]);
+
 
   const loadTrendingBooks = async () => {
     try {
