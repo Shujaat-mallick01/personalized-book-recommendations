@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useBooks } from '../../contexts/BookContext';
 import { useAuth } from '../../contexts/AuthContext';
 import SearchBar from '../../components/SearchBar';
@@ -22,18 +22,7 @@ const Home = () => {
   const [popularBooks, setPopularBooks] = useState([]);
   const [genreBooks, setGenreBooks] = useState([]);
 
-  useEffect(() => {
-  if (user) {
-    if (selectedGenresForHome && selectedGenresForHome.length > 0) {
-      loadGenreBasedPopularBooks();
-    } else {
-      loadPopularBooks();
-    }
-  }
-}, [selectedGenresForHome, user, loadGenreBasedPopularBooks, loadPopularBooks]);
-
-
-  const loadPopularBooks = async () => {
+  const loadPopularBooks = useCallback(async () => {
     try {
       setLoading(true);
       const books = await getPopularBooks(12);
@@ -45,9 +34,9 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setError]);
 
-  const loadGenreBasedPopularBooks = async () => {
+  const loadGenreBasedPopularBooks = useCallback(async () => {
     try {
       setLoading(true);
       let allGenreBooks = [];
@@ -74,7 +63,17 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedGenresForHome, setLoading, setError]);
+
+  useEffect(() => {
+    if (user) {
+      if (selectedGenresForHome && selectedGenresForHome.length > 0) {
+        loadGenreBasedPopularBooks();
+      } else {
+        loadPopularBooks();
+      }
+    }
+  }, [selectedGenresForHome, user, loadGenreBasedPopularBooks, loadPopularBooks]);
 
   const getPopularBooksTitle = () => {
     if (selectedGenresForHome && selectedGenresForHome.length > 0) {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useBooks } from '../../contexts/BookContext';
 import { useUser } from '../../contexts/UserContext';
 import BookCard from '../../components/BookCard';
@@ -49,31 +49,6 @@ const Recommendations = () => {
     }
   }, [selectedGenresForHome]);
 
-  useEffect(() => {
-  loadTrendingBooks();
-  if (hasPreferences || hasRatings) {
-    loadPersonalizedRecommendations();
-  }
-}, [hasPreferences, hasRatings, loadPersonalizedRecommendations]);
-
-
-  useEffect(() => {
-  if (selectedGenres.length > 0) {
-    loadGenreBasedRecommendations();
-    // Update homepage to show books from selected genres
-    if (updateHomepageGenres) {
-      updateHomepageGenres(selectedGenres);
-    }
-  } else {
-    setGenreRecs([]);
-    // Clear homepage genre filter
-    if (updateHomepageGenres) {
-      updateHomepageGenres([]);
-    }
-  }
-}, [selectedGenres, updateHomepageGenres, loadGenreBasedRecommendations]);
-
-
   const loadTrendingBooks = async () => {
     try {
       setLoading(true);
@@ -89,7 +64,7 @@ const Recommendations = () => {
     }
   };
 
-  const loadPersonalizedRecommendations = async () => {
+  const loadPersonalizedRecommendations = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -120,10 +95,11 @@ const Recommendations = () => {
         for (const author of preferences.authors.slice(0, 2)) {
           try {
             const authorBooks = await searchBooks(`inauthor:"${author}"`, 4);
-            const filteredBooks = (authorBooks || []).filter(book => 
-              !(readingList || []).some(rb => rb.id === book.id) &&
-              !recommendations.some(rb => rb.id === book.id)
-            );
+            const filteredBooks = (authorBooks || []).filter(book => {
+              const inReadingList = (readingList || []).some(rb => rb.id === book.id);
+              const alreadyRecommended = recommendations.some(rb => rb.id === book.id);
+              return !inReadingList && !alreadyRecommended;
+            });
             
             filteredBooks.forEach(book => {
               book.recommendationReason = `More books by ${author}`;
@@ -149,9 +125,9 @@ const Recommendations = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [preferences, readingList]);
 
-const loadGenreBasedRecommendations = async () => {
+const loadGenreBasedRecommendations = useCallback(async () => {
   try {
     setGenreLoading(true);
     let allGenreBooks = [];
@@ -187,7 +163,31 @@ const loadGenreBasedRecommendations = async () => {
   } finally {
     setGenreLoading(false);
   }
-};
+}, [selectedGenres, readingList]);
+
+  useEffect(() => {
+    loadTrendingBooks();
+    if (hasPreferences || hasRatings) {
+      loadPersonalizedRecommendations();
+    }
+  }, [hasPreferences, hasRatings, loadPersonalizedRecommendations]);
+
+  useEffect(() => {
+    if (selectedGenres.length > 0) {
+      loadGenreBasedRecommendations();
+      // Update homepage to show books from selected genres
+      if (updateHomepageGenres) {
+        updateHomepageGenres(selectedGenres);
+      }
+    } else {
+      setGenreRecs([]);
+      // Clear homepage genre filter
+      if (updateHomepageGenres) {
+        updateHomepageGenres([]);
+      }
+    }
+  }, [selectedGenres, updateHomepageGenres, loadGenreBasedRecommendations]);
+
   const handleGenreToggle = (genre) => {
     setSelectedGenres(prev => {
       if (prev.includes(genre)) {
@@ -299,160 +299,172 @@ const loadGenreBasedRecommendations = async () => {
       </div>
       
       {selectedGenres.length > 0 && (
-        <div className="selected-genres-display">
-          <p>Showing recommendations for: {selectedGenres.join(', ')}</p>
-          <span className="genre-count">({selectedGenres.length}/5 selected)</span>
-          <div className="homepage-sync-note">
-            <Home size={14} />
-            These genres are now featured on your Homepage
-          </div>
+        <div className="selected-info">
+          {selectedGenres.length} genre{selectedGenres.length !== 1 ? 's' : ''} selected
+          {selectedGenres.length >= 5 && ' (max reached)'}
         </div>
       )}
     </div>
   );
 
-  return (
-    <div className="recommendations-page">
-      <div className="recommendations-header">
-        <h2>
-          <BookOpen size={32} />
-          Your Book Recommendations
-        </h2>
-        
-        <div className="recommendation-stats">
-          <span className="stat">
-            <BookOpen size={16} />
-            {stats.totalBooks} books in library
-          </span>
-          <span className="stat">
-            <Star size={16} />
-            {stats.totalRated} books rated
-          </span>
-          <span className="stat">
-            <Target size={16} />
-            {preferences?.genres?.length || 0} favorite genres
-          </span>
+  const renderBookGrid = (books, showReason = false) => (
+    <div className="recommendation-grid">
+      {books.map((book) => (
+        <div key={book.id} className="recommendation-card-wrapper">
+          <BookCard book={book} />
+          {showReason && book.recommendationReason && (
+            <p className="recommendation-reason">{book.recommendationReason}</p>
+          )}
         </div>
+      ))}
+    </div>
+  );
+
+  return (
+    <div className="recommendations">
+      <div className="recommendation-header">
+        <h1>
+          <Sparkles size={32} />
+          Discover Books
+        </h1>
+        
+        {stats && (
+          <div className="reading-stats">
+            <div className="stat">
+              <BookOpen size={16} />
+              <span>{stats.totalBooks} books in library</span>
+            </div>
+            <div className="stat">
+              <Star size={16} />
+              <span>{stats.ratedBooks} books rated</span>
+            </div>
+          </div>
+        )}
       </div>
 
-      <div className="recommendations-tabs">
-        <button 
-          className={`tab-button ${activeTab === 'for-you' ? 'active' : ''}`}
+      <div className="recommendation-tabs">
+        <button
+          className={`tab ${activeTab === 'for-you' ? 'active' : ''}`}
           onClick={() => setActiveTab('for-you')}
         >
-          For You ({personalizedRecs.length})
+          <Target size={20} />
+          For You
         </button>
-        <button 
-          className={`tab-button ${activeTab === 'by-genre' ? 'active' : ''}`}
-          onClick={() => setActiveTab('by-genre')}
-        >
-          By Genre ({genreRecs.length})
-        </button>
-        <button 
-          className={`tab-button ${activeTab === 'trending' ? 'active' : ''}`}
+        <button
+          className={`tab ${activeTab === 'trending' ? 'active' : ''}`}
           onClick={() => setActiveTab('trending')}
         >
-          Trending ({trendingBooks.length})
+          <TrendingUp size={20} />
+          Trending
+        </button>
+        <button
+          className={`tab ${activeTab === 'explore' ? 'active' : ''}`}
+          onClick={() => setActiveTab('explore')}
+        >
+          <Filter size={20} />
+          Explore by Genre
         </button>
       </div>
 
-      {activeTab === 'for-you' && (
-        <div className="tab-content">
-          <div className="tab-header">
-            <button 
-              className="refresh-button"
-              onClick={handleRefreshRecommendations}
-              disabled={loading}
-            >
-              <RefreshCw size={16} className={loading ? 'spinning' : ''} />
-              Refresh Recommendations
-            </button>
-          </div>
+      <div className="recommendation-content">
+        {activeTab === 'for-you' && (
+          <>
+            {(!hasPreferences && !hasRatings) ? (
+              renderEmptyState()
+            ) : (
+              <>
+                <div className="section-header">
+                  <h3>
+                    <Target size={24} />
+                    Personalized for You
+                  </h3>
+                  <button 
+                    className="refresh-button" 
+                    onClick={handleRefreshRecommendations}
+                    disabled={loading}
+                  >
+                    <RefreshCw size={16} />
+                    Refresh
+                  </button>
+                </div>
+                
+                {loading ? (
+                  <div className="loading-state">
+                    <RefreshCw className="spinning" size={48} />
+                    <p>Finding great books for you...</p>
+                  </div>
+                ) : personalizedRecs.length > 0 ? (
+                  renderBookGrid(personalizedRecs, true)
+                ) : (
+                  <p className="no-results">
+                    No recommendations yet. Try rating more books or updating your preferences!
+                  </p>
+                )}
+              </>
+            )}
+          </>
+        )}
 
-          {error && (
-            <div className="error-message">
-              <AlertCircle size={16} />
-              {error}
-            </div>
-          )}
-
-          {(!hasPreferences && !hasRatings) || personalizedRecs.length === 0 ? (
-            renderEmptyState()
-          ) : (
-            <div className="recommendations-section">
+        {activeTab === 'trending' && (
+          <>
+            <div className="section-header">
               <h3>
-                <Sparkles size={24} />
-                Recommended for You
+                <TrendingUp size={24} />
+                Trending Now
               </h3>
-              <div className="books-grid">
-                {personalizedRecs.map((book) => (
-                  <BookCard key={book.id} book={book} />
-                ))}
-              </div>
+              <button 
+                className="refresh-button" 
+                onClick={loadTrendingBooks}
+                disabled={loading}
+              >
+                <RefreshCw size={16} />
+                Refresh
+              </button>
             </div>
-          )}
-        </div>
-      )}
-
-      {activeTab === 'by-genre' && (
-        <div className="tab-content">
-          {renderGenreFilter()}
-          
-          {genreLoading ? (
-            <div className="loading-state">
-              <div className="spinner"></div>
-              <p>Loading {selectedGenres.join(', ')} books...</p>
-            </div>
-          ) : genreRecs.length > 0 ? (
-            <div className="recommendations-section">
-              <h3>
-                <Filter size={24} />
-                {selectedGenres.join(' & ')} Books
-              </h3>
-              <div className="books-grid">
-                {genreRecs.map((book) => (
-                  <BookCard key={book.id} book={book} />
-                ))}
-              </div>
-            </div>
-          ) : selectedGenres.length > 0 ? (
-            <div className="empty-genre-state">
-              <BookOpen size={48} />
-              <h4>No books found</h4>
-              <p>Try selecting different genres or check back later</p>
-            </div>
-          ) : (
-            <div className="select-genre-prompt">
-              <Filter size={48} />
-              <h4>Select genres to explore</h4>
-              <p>Choose up to 5 genres to see personalized recommendations</p>
-            </div>
-          )}
-        </div>
-      )}
-
-      {activeTab === 'trending' && (
-        <div className="tab-content">
-          <div className="recommendations-section">
-            <h3>
-              <TrendingUp size={24} />
-              Trending Books
-            </h3>
+            
             {loading ? (
               <div className="loading-state">
-                <div className="spinner"></div>
+                <RefreshCw className="spinning" size={48} />
                 <p>Loading trending books...</p>
               </div>
+            ) : trendingBooks.length > 0 ? (
+              renderBookGrid(trendingBooks)
             ) : (
-              <div className="books-grid">
-                {trendingBooks.map((book) => (
-                  <BookCard key={book.id} book={book} />
-                ))}
-              </div>
+              <p className="no-results">No trending books found. Check back later!</p>
             )}
-          </div>
-        </div>
-      )}
+          </>
+        )}
+
+        {activeTab === 'explore' && (
+          <>
+            <div className="section-header">
+              <h3>
+                <Filter size={24} />
+                Explore by Genre
+              </h3>
+            </div>
+            
+            {renderGenreFilter()}
+            
+            {selectedGenres.length > 0 && (
+              <>
+                {genreLoading ? (
+                  <div className="loading-state">
+                    <RefreshCw className="spinning" size={48} />
+                    <p>Loading {selectedGenres.join(', ')} books...</p>
+                  </div>
+                ) : genreRecs.length > 0 ? (
+                  renderBookGrid(genreRecs, true)
+                ) : (
+                  <p className="no-results">
+                    No books found for selected genres. Try different genres!
+                  </p>
+                )}
+              </>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

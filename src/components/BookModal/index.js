@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useBooks } from '../../contexts/BookContext';
-import BookCoverUpload from '../BookCoverUpload';
 import Rating from '../Rating';
 import { 
   X, 
@@ -241,9 +240,7 @@ const BookModal = ({ book, isOpen, onClose }) => {
         </div>
       </div>
     </div>
-    
   );
-  {/* Add this after the book cover section */}
 };
 
 export default BookModal;
